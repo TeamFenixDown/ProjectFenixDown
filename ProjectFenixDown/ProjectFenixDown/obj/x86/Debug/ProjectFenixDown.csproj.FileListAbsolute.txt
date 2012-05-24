@@ -1,0 +1,6 @@
+C:\Users\Korea\Documents\Visual Studio 2010\Projects\ProjectFenixDown\ProjectFenixDown\ProjectFenixDown\bin\x86\Debug\ProjectFenixDown.exe
+C:\Users\Korea\Documents\Visual Studio 2010\Projects\ProjectFenixDown\ProjectFenixDown\ProjectFenixDown\bin\x86\Debug\ProjectFenixDown.pdb
+C:\Users\Korea\Documents\Visual Studio 2010\Projects\ProjectFenixDown\ProjectFenixDown\ProjectFenixDown\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\Korea\Documents\Visual Studio 2010\Projects\ProjectFenixDown\ProjectFenixDown\ProjectFenixDown\obj\x86\Debug\ProjectFenixDown.exe
+C:\Users\Korea\Documents\Visual Studio 2010\Projects\ProjectFenixDown\ProjectFenixDown\ProjectFenixDown\obj\x86\Debug\ProjectFenixDown.pdb
+C:\Users\Korea\Documents\Visual Studio 2010\Projects\ProjectFenixDown\ProjectFenixDown\ProjectFenixDown\bin\x86\Debug\Content\tempPlayer.xnb

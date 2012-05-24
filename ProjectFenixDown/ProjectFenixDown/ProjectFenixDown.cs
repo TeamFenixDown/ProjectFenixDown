@@ -19,6 +19,14 @@ namespace ProjectFenixDown
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        // We store our input states so that we only poll once per frame, 
+        // then we use the same input state wherever needed
+        private GamePadState gamePadState;
+        private KeyboardState keyboardState;
+
+        //represents the player
+        Player playerCharacter;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -33,7 +41,8 @@ namespace ProjectFenixDown
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            //Initialize the player class
+            playerCharacter = new Player();
 
             base.Initialize();
         }
@@ -47,7 +56,9 @@ namespace ProjectFenixDown
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            // Load the player resources 
+            Vector2 playerPosition = new Vector2(GraphicsDevice.Viewport.TitleSafeArea.X, GraphicsDevice.Viewport.TitleSafeArea.Y + GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
+            playerCharacter.Initialize(Content.Load<Texture2D>("tempPlayer"), playerPosition);
         }
 
         /// <summary>
@@ -66,13 +77,23 @@ namespace ProjectFenixDown
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                this.Exit();
 
-            // TODO: Add your update logic here
+            // Handle polling for our input
+            HandleInput();
 
             base.Update(gameTime);
+        }
+
+        private void HandleInput()
+        {
+            //get all of our input states
+            keyboardState = Keyboard.GetState();
+            gamePadState = GamePad.GetState(PlayerIndex.One);
+
+            // Exit the game when back is pressed.
+            if (gamePadState.Buttons.Back == ButtonState.Pressed)
+                Exit();
+
         }
 
         /// <summary>
@@ -83,7 +104,14 @@ namespace ProjectFenixDown
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            // Start drawing
+            spriteBatch.Begin();
+
+            // Draw the Player
+            playerCharacter.Draw(spriteBatch);
+
+            // Stop drawing
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
