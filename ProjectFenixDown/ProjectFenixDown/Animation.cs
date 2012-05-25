@@ -40,6 +40,12 @@ namespace ProjectFenixDown
         //width of a given frame
         public Vector2 position;
 
+        //gets the texture origin at the bottom center of each frame
+        public Vector2 origin
+        {
+            get { return new Vector2(frameWidth / 2.0f, frameHeight); }
+        }
+
         public void Initialize(Texture2D textureInput, Vector2 positionInput, int frameWidthInput, int frameHeightInput, int frameCountInput, int frameTimeInput, Color colorInput, float scaleInput, bool loopingInput)
         {
             //keep a local copy of the values passed on

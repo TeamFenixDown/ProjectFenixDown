@@ -10,6 +10,42 @@
       <Output>C:\Users\Korea\Documents\Visual Studio 2010\Projects\ProjectFenixDown\ProjectFenixDown\ProjectFenixDown\bin\x86\Debug\Content\tempPlayer.xnb</Output>
       <Time>2012-05-23T23:38:23.2685546-04:00</Time>
     </Item>
+    <Item>
+      <Source>Tiles\Ground0.png</Source>
+      <Name>Tiles\Ground0</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Korea\Documents\Visual Studio 2010\Projects\ProjectFenixDown\ProjectFenixDown\ProjectFenixDown\bin\x86\Debug\Content\Tiles\Ground0.xnb</Output>
+      <Time>2012-05-25T14:39:25.461914-04:00</Time>
+    </Item>
+    <Item>
+      <Source>Tiles\Ground1.png</Source>
+      <Name>Tiles\Ground1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Korea\Documents\Visual Studio 2010\Projects\ProjectFenixDown\ProjectFenixDown\ProjectFenixDown\bin\x86\Debug\Content\Tiles\Ground1.xnb</Output>
+      <Time>2012-05-25T14:40:51.6884765-04:00</Time>
+    </Item>
+    <Item>
+      <Source>Tiles\Ground2.png</Source>
+      <Name>Tiles\Ground2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Korea\Documents\Visual Studio 2010\Projects\ProjectFenixDown\ProjectFenixDown\ProjectFenixDown\bin\x86\Debug\Content\Tiles\Ground2.xnb</Output>
+      <Time>2012-05-25T14:40:58.9707031-04:00</Time>
+    </Item>
+    <Item>
+      <Source>Tiles\Ground3.png</Source>
+      <Name>Tiles\Ground3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Korea\Documents\Visual Studio 2010\Projects\ProjectFenixDown\ProjectFenixDown\ProjectFenixDown\bin\x86\Debug\Content\Tiles\Ground3.xnb</Output>
+      <Time>2012-05-25T14:41:07.3251953-04:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>

@@ -11,28 +11,52 @@ namespace ProjectFenixDown
         //animations
         public Texture2D tempPlayerTexture;
 
-        //position of the player relative to the upper left side of the screen
-        public Vector2 position;
         //state of the player, is she alive?
         public bool isAlive;
         //amount of hitpoints the player has
         public int health;
-        //Get the Width of the player
+
+        // Get the width of the player ship
         public int width
         {
             get { return tempPlayerTexture.Width; }
         }
-        //get the height of the player
+
+        // Get the height of the player ship
         public int height
         {
             get { return tempPlayerTexture.Height; }
         }
+        
+        //position of the player relative to the upper left side of the screen
+        public Vector2 position;
+        //velocity of the player
+        public Vector2 velocity;
+
+        //constants for controlling horizontal movement
+        private float moveAcceleration = 13000.0f;
+        private float maxMoveSpeed = 1750.0f;
+        private const float groundDragFactor = 0.48f;
+        private const float airDragFactor = 0.58f;
+
+        //constants for controlling vertical movement
+        private float maxJumpTime = 0.35f;
+        private float jumpLaunchVelocity = -3500.0f;
+        private const float gravityAcceleration = 3400.0f;
+        private const float maxFallSpeed = 550.0f;
+        private const float jumpControlPower = 0.14f;
+
+        //is the player on the gruond?
+        public bool isOnGround;
+
+        //jumping state
+        private bool isJumping;
+        private bool wasJumping;
+        private float jumpTime;
 
         //Keyboard states used to determine key presses
-        KeyboardState currentKeyboardState;
         KeyboardState previousKeyboardState;
         //gamepad states used to determine button presses
-        GamePadState currentGamepadState;
         GamePadState previousGamepadState;
 
         //a movement speed for the player
@@ -53,6 +77,10 @@ namespace ProjectFenixDown
 
             //sets the player movement speed
             playerMoveSpeed = 8.0f;
+        }
+
+        public void loadContent()
+        {
         }
 
         public void Update(GameTime gameTimeInput, KeyboardState keyboardStateInput, GamePadState gamepadStateInput)

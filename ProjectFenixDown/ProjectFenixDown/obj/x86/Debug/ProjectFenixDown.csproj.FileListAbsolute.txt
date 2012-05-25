@@ -5,3 +5,8 @@ C:\Users\Korea\Documents\Visual Studio 2010\Projects\ProjectFenixDown\ProjectFen
 C:\Users\Korea\Documents\Visual Studio 2010\Projects\ProjectFenixDown\ProjectFenixDown\ProjectFenixDown\obj\x86\Debug\ProjectFenixDown.pdb
 C:\Users\Korea\Documents\Visual Studio 2010\Projects\ProjectFenixDown\ProjectFenixDown\ProjectFenixDown\bin\x86\Debug\Content\tempPlayer.xnb
 C:\Users\Korea\Documents\Visual Studio 2010\Projects\ProjectFenixDown\ProjectFenixDown\ProjectFenixDown\obj\x86\Debug\ProjectFenixDown.csprojResolveAssemblyReference.cache
+C:\Users\Korea\Documents\Visual Studio 2010\Projects\ProjectFenixDown\ProjectFenixDown\ProjectFenixDown\bin\x86\Debug\Content\Tiles\Ground0.xnb
+C:\Users\Korea\Documents\Visual Studio 2010\Projects\ProjectFenixDown\ProjectFenixDown\ProjectFenixDown\bin\x86\Debug\Content\Tiles\Ground1.xnb
+C:\Users\Korea\Documents\Visual Studio 2010\Projects\ProjectFenixDown\ProjectFenixDown\ProjectFenixDown\bin\x86\Debug\Content\Tiles\Ground2.xnb
+C:\Users\Korea\Documents\Visual Studio 2010\Projects\ProjectFenixDown\ProjectFenixDown\ProjectFenixDown\bin\x86\Debug\Content\Tiles\Ground3.xnb
+C:\Users\Korea\Documents\Visual Studio 2010\Projects\ProjectFenixDown\ProjectFenixDown\ProjectFenixDown\bin\x86\Debug\Content\Levels\SampleLevel.txt

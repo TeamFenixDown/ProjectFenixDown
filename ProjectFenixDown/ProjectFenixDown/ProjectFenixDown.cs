@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -27,6 +28,9 @@ namespace ProjectFenixDown
         //represents the player
         Player playerCharacter;
 
+        //represents the sample level
+        SampleLevel sampleLevel;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -43,6 +47,7 @@ namespace ProjectFenixDown
         {
             //Initialize the player class
             playerCharacter = new Player();
+            sampleLevel = new SampleLevel();
 
             base.Initialize();
         }
@@ -59,6 +64,12 @@ namespace ProjectFenixDown
             // Load the player resources 
             Vector2 playerPosition = new Vector2(GraphicsDevice.Viewport.TitleSafeArea.X, GraphicsDevice.Viewport.TitleSafeArea.Y + GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
             playerCharacter.Initialize(Content.Load<Texture2D>("tempPlayer"), playerPosition);
+
+            //////////////////////////test load sample level test////////////////////////////////////C:\Users\Korea\Documents\Visual Studio 2010\Projects\ProjectFenixDown\ProjectFenixDown\ProjectFenixDownContent\Levels\SampleLevel.txt
+            string levelName = "SampleLevel";
+            string levelPath = string.Format("Content/Levels/{0}.txt", levelName);
+            using(Stream fileStream = TitleContainer.OpenStream(levelPath))
+                sampleLevel.Initialize(Services, fileStream, levelName);
         }
 
         /// <summary>
@@ -116,6 +127,9 @@ namespace ProjectFenixDown
 
             // Start drawing
             spriteBatch.Begin();
+
+            //draw the level
+            sampleLevel.Draw(gameTime, spriteBatch);
 
             // Draw the Player
             playerCharacter.Draw(spriteBatch);

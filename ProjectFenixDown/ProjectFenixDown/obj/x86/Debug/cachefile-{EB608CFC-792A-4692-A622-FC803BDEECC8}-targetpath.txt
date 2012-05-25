@@ -1,1 +1,6 @@
 Content\tempPlayer.xnb
+Content\Tiles\Ground0.xnb
+Content\Tiles\Ground1.xnb
+Content\Tiles\Ground2.xnb
+Content\Tiles\Ground3.xnb
+Content\Levels\SampleLevel.txt
