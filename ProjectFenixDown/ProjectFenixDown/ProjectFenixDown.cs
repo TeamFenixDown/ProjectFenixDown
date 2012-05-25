@@ -80,8 +80,18 @@ namespace ProjectFenixDown
 
             // Handle polling for our input
             HandleInput();
+            playerCharacter.Update(gameTime, keyboardState, gamePadState);
+            playerClamp();
+            
 
             base.Update(gameTime);
+        }
+
+        private void playerClamp()
+        {
+            // make sure that the player does not go out of bounds
+            playerCharacter.position.X = MathHelper.Clamp(playerCharacter.position.X, 0, GraphicsDevice.Viewport.Width - playerCharacter.width);
+            playerCharacter.position.Y = MathHelper.Clamp(playerCharacter.position.Y, 0, GraphicsDevice.Viewport.Height - playerCharacter.height);
         }
 
         private void HandleInput()
