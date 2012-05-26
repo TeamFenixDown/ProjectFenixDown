@@ -12,7 +12,7 @@ namespace ProjectFenixDown
     {
         private Random random = new Random(354668);
         // Physical structure of the level.
-        private Tile[,] tilesGrid;
+        public Tile[,] tilesGrid;
 
         // Level content.        
         public ContentManager Content

@@ -29,7 +29,7 @@ namespace ProjectFenixDown
         Player playerCharacter;
 
         //represents the sample level
-        SampleLevel sampleLevel;
+        Level sampleLevel;
 
         public Game1()
         {
@@ -47,7 +47,7 @@ namespace ProjectFenixDown
         {
             //Initialize the player class
             playerCharacter = new Player();
-            sampleLevel = new SampleLevel();
+            sampleLevel = new Level();
 
             base.Initialize();
         }
@@ -61,15 +61,15 @@ namespace ProjectFenixDown
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // Load the player resources 
-            Vector2 playerPosition = new Vector2(GraphicsDevice.Viewport.TitleSafeArea.X, GraphicsDevice.Viewport.TitleSafeArea.Y + GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
-            playerCharacter.Initialize(Content.Load<Texture2D>("tempPlayer"), playerPosition);
-
-            //////////////////////////test load sample level test////////////////////////////////////C:\Users\Korea\Documents\Visual Studio 2010\Projects\ProjectFenixDown\ProjectFenixDown\ProjectFenixDownContent\Levels\SampleLevel.txt
+            //////////////////////////test load sample level test////////////////////////////////////
             string levelName = "SampleLevel";
             string levelPath = string.Format("Content/Levels/{0}.txt", levelName);
-            using(Stream fileStream = TitleContainer.OpenStream(levelPath))
+            using (Stream fileStream = TitleContainer.OpenStream(levelPath))
                 sampleLevel.Initialize(Services, fileStream, levelName);
+
+            // Load the player resources 
+            Vector2 playerPosition = new Vector2(GraphicsDevice.Viewport.TitleSafeArea.X, GraphicsDevice.Viewport.TitleSafeArea.Y + GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
+            playerCharacter.Initialize(sampleLevel, Content.Load<Texture2D>("tempPlayer"), playerPosition);
         }
 
         /// <summary>
@@ -101,8 +101,8 @@ namespace ProjectFenixDown
         private void playerClamp()
         {
             // make sure that the player does not go out of bounds
-            playerCharacter.position.X = MathHelper.Clamp(playerCharacter.position.X, 0, GraphicsDevice.Viewport.Width - playerCharacter.width);
-            playerCharacter.position.Y = MathHelper.Clamp(playerCharacter.position.Y, 0, GraphicsDevice.Viewport.Height - playerCharacter.height);
+            playerCharacter.playerPosition.X = MathHelper.Clamp(playerCharacter.playerPosition.X, 0, GraphicsDevice.Viewport.Width - playerCharacter.width);
+            playerCharacter.playerPosition.Y = MathHelper.Clamp(playerCharacter.playerPosition.Y, 0, GraphicsDevice.Viewport.Height - playerCharacter.height);
         }
 
         private void HandleInput()
