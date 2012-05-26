@@ -100,7 +100,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>bjUCjwvO7NWeZHSLqHpHTHMB1OY=</dsig:DigestValue>
+        <dsig:DigestValue>AXtwaYyVIY6rrEjFRy6QbSwslxM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -110,7 +110,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>458lLM/DXciF8qkyhDsbvAFqUmA=</dsig:DigestValue>
+      <dsig:DigestValue>pGud90C/xy5Z8oUUzGSIXM/QkXM=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Content\tempPlayer.xnb" size="14571">

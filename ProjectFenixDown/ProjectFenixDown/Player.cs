@@ -101,7 +101,7 @@ namespace ProjectFenixDown
             health = 100;
 
             //sets the player movement speed
-            playerMoveSpeed = 8.0f;
+            playerMoveSpeed = 7.0f;
 
             loadContent();
         }
@@ -111,9 +111,9 @@ namespace ProjectFenixDown
 
             //calculates the player's local bounds
             int width = (int)(tempPlayerTexture.Width);
-            int left = (int)tempPlayerTexture.Width - width;
-            int height = (int)(tempPlayerTexture.Height);
-            int top = (int)tempPlayerTexture.Height - height;
+            int left = (int)(tempPlayerTexture.Width - width);
+            int height = (int)(tempPlayerTexture.Height * 0.9);
+            int top = (int)(tempPlayerTexture.Height - height);
             playerLocalBounds = new Rectangle(left, top, width, height);
         }
 
@@ -129,9 +129,9 @@ namespace ProjectFenixDown
             //get the player's bounding rectangle and find neighboring tiles
             Rectangle playerBounds = playerBoundingBox;
             int leftTile = (int)Math.Floor((float)playerBounds.Left / Tile.width);
-            int rightTile = (int)Math.Ceiling((float)playerBounds.Right / Tile.width) - 1;
+            int rightTile = (int)Math.Ceiling((float)playerBounds.Right / Tile.width);
             int topTile = (int)Math.Floor((float)playerBounds.Top / Tile.height);
-            int bottomTile = (int)Math.Ceiling((float)playerBounds.Bottom / Tile.height) - 1;
+            int bottomTile = (int)Math.Ceiling((float)playerBounds.Bottom / Tile.height);
 
             //reset flag to search for ground collision
             isOnGround = false;

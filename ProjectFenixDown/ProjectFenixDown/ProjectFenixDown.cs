@@ -92,7 +92,7 @@ namespace ProjectFenixDown
             // Handle polling for our input
             HandleInput();
             playerCharacter.Update(gameTime, keyboardState, gamePadState);
-            playerClamp();
+            //playerClamp();
             
 
             base.Update(gameTime);
