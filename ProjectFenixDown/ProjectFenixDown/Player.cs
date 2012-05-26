@@ -57,13 +57,8 @@ namespace ProjectFenixDown
         private bool wasJumping;
         private float jumpTime;
 
-        //Keyboard states used to determine key presses
-        KeyboardState previousKeyboardState;
-        //gamepad states used to determine button presses
-        GamePadState previousGamepadState;
-
-        //a movement speed for the player
-        float playerMoveSpeed;
+        //current user movement input
+        private float playerMovementInput;
 
         private Rectangle playerLocalBounds;
         //get a rectangle which bounds this player in world space
@@ -71,7 +66,7 @@ namespace ProjectFenixDown
         {
             get
             {
-                int left = (int)Math.Round(playerPosition.X) + playerLocalBounds.X;
+                int left = (int)Math.Round(playerPosition.X ) + playerLocalBounds.X;
                 int top = (int)Math.Round(playerPosition.Y) + playerLocalBounds.Y;
 
                 return new Rectangle(left, top, playerLocalBounds.Width, playerLocalBounds.Height);
@@ -84,6 +79,9 @@ namespace ProjectFenixDown
             get { return level; }
         }
         Level level;
+
+        // Input configuration
+        private const float MoveStickScale = 1.5f;
 
         public void Initialize(Level levelInput ,Texture2D textureInput, Vector2 positionInput)
         {
@@ -100,18 +98,19 @@ namespace ProjectFenixDown
             //set the player health
             health = 100;
 
-            //sets the player movement speed
-            playerMoveSpeed = 7.0f;
-
             loadContent();
+
+            //sets the player movement speed
+            velocity = Vector2.Zero;
+            
         }
 
         public void loadContent()
         {
 
             //calculates the player's local bounds
-            int width = (int)(tempPlayerTexture.Width);
-            int left = (int)(tempPlayerTexture.Width - width);
+            int width = (int)(tempPlayerTexture.Width * 0.7);
+            int left = (int)(tempPlayerTexture.Width - width) / 2;
             int height = (int)(tempPlayerTexture.Height * 0.9);
             int top = (int)(tempPlayerTexture.Height - height);
             playerLocalBounds = new Rectangle(left, top, width, height);
@@ -121,7 +120,10 @@ namespace ProjectFenixDown
         {
             //update the input
             InputUpdate(gameTimeInput, keyboardStateInput, gamepadStateInput);
-            HandleCollisions();
+            ApplyPhysics(gameTimeInput);
+
+            // Clear input.
+            playerMovementInput = 0.0f;
         }
 
         public void HandleCollisions()
@@ -188,31 +190,56 @@ namespace ProjectFenixDown
 
         public void InputUpdate(GameTime gameTimeInput, KeyboardState keyboardStateInput, GamePadState gamepadStateInput)
         {
-            // Save the previous state of the keyboard and game pad so we can determine single key/button presses
-            previousGamepadState = gamepadStateInput;
-            previousKeyboardState = keyboardStateInput;
+            //get analog horizontal movement
+            playerMovementInput = gamepadStateInput.ThumbSticks.Left.X * MoveStickScale;
 
-            //get thumbstick controls
-            playerPosition.X += gamepadStateInput.ThumbSticks.Left.X * playerMoveSpeed;
-            playerPosition.Y -= gamepadStateInput.ThumbSticks.Left.Y * playerMoveSpeed;
+            //ignore small movements to prevent running in place.
+            if (Math.Abs(playerMovementInput) < 0.5f)
+                playerMovementInput = 0.0f;
 
-            //use the keyboard/Dpad
-            if (keyboardStateInput.IsKeyDown(Keys.Left) || gamepadStateInput.DPad.Left == ButtonState.Pressed)
+            //if any digital movement input is found, override the analog movment
+            if (gamepadStateInput.IsButtonDown(Buttons.DPadLeft) || keyboardStateInput.IsKeyDown(Keys.Left))
             {
-                playerPosition.X -= playerMoveSpeed;
+                playerMovementInput = -1.5f;
             }
-            if (keyboardStateInput.IsKeyDown(Keys.Right) || gamepadStateInput.DPad.Right == ButtonState.Pressed)
+            else if (gamepadStateInput.IsButtonDown(Buttons.DPadRight) || keyboardStateInput.IsKeyDown(Keys.Right))
             {
-                playerPosition.X += playerMoveSpeed;
+                playerMovementInput = 1.5f;
+
             }
-            if (keyboardStateInput.IsKeyDown(Keys.Up) || gamepadStateInput.DPad.Up == ButtonState.Pressed)
-            {
-                playerPosition.Y -= playerMoveSpeed;
-            }
-            if (keyboardStateInput.IsKeyDown(Keys.Down) || gamepadStateInput.DPad.Down == ButtonState.Pressed)
-            {
-                playerPosition.Y += playerMoveSpeed;
-            }
+        }
+
+        public void ApplyPhysics(GameTime gameTimeInput)
+        {
+            float elapsed = (float)gameTimeInput.ElapsedGameTime.TotalSeconds;
+
+            Vector2 previousPosition = playerPosition;
+
+            //base velocity is a combination of horizontal movement control and acceleration downward due to gravity
+            velocity.X += playerMovementInput * moveAcceleration * elapsed;
+            velocity.Y = MathHelper.Clamp(velocity.Y + gravityAcceleration * elapsed, -maxFallSpeed, maxFallSpeed);
+
+            //apply pseudo-drag horizontally
+            if (isOnGround)
+                velocity.X *= groundDragFactor;
+            else
+                velocity.X *= airDragFactor;
+
+            //prevent the player from running faster than her top speed
+            velocity.X = MathHelper.Clamp(velocity.X, -maxMoveSpeed, maxMoveSpeed);
+
+            //apply velocity
+            playerPosition += velocity * elapsed;
+            playerPosition = new Vector2((float)Math.Round(playerPosition.X), (float)Math.Round(playerPosition.Y));
+
+            //if the player is now colliding with the level, separate them
+            HandleCollisions();
+
+            //if the collision stopped us from moving, reset the velocity to zero
+            if (playerPosition.X == previousPosition.X)
+                velocity.X = 0;
+            if (playerPosition.Y == previousPosition.Y)
+                velocity.Y = 0;
         }
 
         public void Draw(SpriteBatch spriteBatch)
