@@ -7,8 +7,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Korea\Documents\Visual Studio 2010\Projects\ProjectFenixDown\ProjectFenixDown\ProjectFenixDown\bin\x86\Debug\Content\tempPlayer.xnb</Output>
-      <Time>2012-05-23T23:38:23.2685546-04:00</Time>
+      <Output>C:\Users\Justin\Documents\GitHub\ProjectFenixDown\ProjectFenixDown\ProjectFenixDown\bin\x86\Debug\Content\tempPlayer.xnb</Output>
+      <Time>2012-05-27T11:55:25.0853409-04:00</Time>
     </Item>
     <Item>
       <Source>Tiles\Ground0.png</Source>
@@ -16,8 +16,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Korea\Documents\Visual Studio 2010\Projects\ProjectFenixDown\ProjectFenixDown\ProjectFenixDown\bin\x86\Debug\Content\Tiles\Ground0.xnb</Output>
-      <Time>2012-05-25T14:39:25.461914-04:00</Time>
+      <Output>C:\Users\Justin\Documents\GitHub\ProjectFenixDown\ProjectFenixDown\ProjectFenixDown\bin\x86\Debug\Content\Tiles\Ground0.xnb</Output>
+      <Time>2012-05-27T11:55:25.0823407-04:00</Time>
     </Item>
     <Item>
       <Source>Tiles\Ground1.png</Source>
@@ -25,8 +25,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Korea\Documents\Visual Studio 2010\Projects\ProjectFenixDown\ProjectFenixDown\ProjectFenixDown\bin\x86\Debug\Content\Tiles\Ground1.xnb</Output>
-      <Time>2012-05-25T14:40:51.6884765-04:00</Time>
+      <Output>C:\Users\Justin\Documents\GitHub\ProjectFenixDown\ProjectFenixDown\ProjectFenixDown\bin\x86\Debug\Content\Tiles\Ground1.xnb</Output>
+      <Time>2012-05-27T11:55:25.0823407-04:00</Time>
     </Item>
     <Item>
       <Source>Tiles\Ground2.png</Source>
@@ -34,8 +34,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Korea\Documents\Visual Studio 2010\Projects\ProjectFenixDown\ProjectFenixDown\ProjectFenixDown\bin\x86\Debug\Content\Tiles\Ground2.xnb</Output>
-      <Time>2012-05-25T14:40:58.9707031-04:00</Time>
+      <Output>C:\Users\Justin\Documents\GitHub\ProjectFenixDown\ProjectFenixDown\ProjectFenixDown\bin\x86\Debug\Content\Tiles\Ground2.xnb</Output>
+      <Time>2012-05-27T11:55:25.0823407-04:00</Time>
     </Item>
     <Item>
       <Source>Tiles\Ground3.png</Source>
@@ -43,8 +43,35 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Korea\Documents\Visual Studio 2010\Projects\ProjectFenixDown\ProjectFenixDown\ProjectFenixDown\bin\x86\Debug\Content\Tiles\Ground3.xnb</Output>
-      <Time>2012-05-25T14:41:07.3251953-04:00</Time>
+      <Output>C:\Users\Justin\Documents\GitHub\ProjectFenixDown\ProjectFenixDown\ProjectFenixDown\bin\x86\Debug\Content\Tiles\Ground3.xnb</Output>
+      <Time>2012-05-27T11:55:25.0823407-04:00</Time>
+    </Item>
+    <Item>
+      <Source>hadouken.png</Source>
+      <Name>hadouken</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Justin\Documents\GitHub\ProjectFenixDown\ProjectFenixDown\ProjectFenixDown\bin\x86\Debug\Content\hadouken.xnb</Output>
+      <Time>2012-05-27T12:36:28.1582206-04:00</Time>
+    </Item>
+    <Item>
+      <Source>shredder.png</Source>
+      <Name>shredder</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Justin\Documents\GitHub\ProjectFenixDown\ProjectFenixDown\ProjectFenixDown\bin\x86\Debug\Content\shredder.xnb</Output>
+      <Time>2012-05-27T12:36:28.1592207-04:00</Time>
+    </Item>
+    <Item>
+      <Source>Sprite.png</Source>
+      <Name>Sprite</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Justin\Documents\GitHub\ProjectFenixDown\ProjectFenixDown\ProjectFenixDown\bin\x86\Debug\Content\Sprite.xnb</Output>
+      <Time>2012-05-27T12:37:37.0271597-04:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
@@ -52,10 +79,10 @@
       <TargetProfile>HiDef</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>C:\Users\Korea\Documents\Visual Studio 2010\Projects\ProjectFenixDown\ProjectFenixDown\ProjectFenixDownContent\</RootDirectory>
-      <LoggerRootDirectory>C:\Users\Korea\Documents\Visual Studio 2010\Projects\ProjectFenixDown\ProjectFenixDown\ProjectFenixDown\</LoggerRootDirectory>
-      <IntermediateDirectory>C:\Users\Korea\Documents\Visual Studio 2010\Projects\ProjectFenixDown\ProjectFenixDown\ProjectFenixDownContent\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>C:\Users\Korea\Documents\Visual Studio 2010\Projects\ProjectFenixDown\ProjectFenixDown\ProjectFenixDown\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>C:\Users\Justin\Documents\GitHub\ProjectFenixDown\ProjectFenixDown\ProjectFenixDownContent\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\Justin\Documents\GitHub\ProjectFenixDown\ProjectFenixDown\ProjectFenixDown\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\Justin\Documents\GitHub\ProjectFenixDown\ProjectFenixDown\ProjectFenixDownContent\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\Justin\Documents\GitHub\ProjectFenixDown\ProjectFenixDown\ProjectFenixDown\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>
@@ -84,7 +111,7 @@
       </Assembly>
       <Assembly>
         <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
-        <Value>2012-05-20T17:32:19.7304687-04:00</Value>
+        <Value>2012-05-25T00:46:06.0989474-04:00</Value>
       </Assembly>
     </Assemblies>
   </Asset>

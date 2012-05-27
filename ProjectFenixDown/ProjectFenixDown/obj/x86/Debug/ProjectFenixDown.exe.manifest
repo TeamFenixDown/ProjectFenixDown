@@ -93,17 +93,26 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ProjectFenixDown.exe" size="23552">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ProjectFenixDown.exe" size="27136">
       <assemblyIdentity name="ProjectFenixDown" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>XcHb29S+0NYlaBZBh50B7U3LCh0=</dsig:DigestValue>
+        <dsig:DigestValue>S3ZZi8nSoVSwbwp2bkoU6ba37Yk=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
+  <file name="Content\hadouken.xnb" size="9403">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>QJkWHIX0X5SYIE4KoZs9LjLK0IU=</dsig:DigestValue>
+    </hash>
+  </file>
   <file name="Content\Levels\SampleLevel.txt" size="174">
     <hash>
       <dsig:Transforms>
@@ -111,6 +120,24 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
       <dsig:DigestValue>458lLM/DXciF8qkyhDsbvAFqUmA=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Content\shredder.xnb" size="26587">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>71Wx5x56AoHglutojzsS3wB4zM8=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Content\Sprite.xnb" size="9427">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>ObT5/CIPQz+qKRHECZB8NNVXjHI=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Content\tempPlayer.xnb" size="14571">

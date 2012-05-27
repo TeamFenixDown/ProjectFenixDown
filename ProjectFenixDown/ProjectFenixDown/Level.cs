@@ -8,7 +8,7 @@ using System.IO;
 
 namespace ProjectFenixDown
 {
-    class Level
+    public class Level
     {
         //the level builder
         LevelBuilder levelBuilder;

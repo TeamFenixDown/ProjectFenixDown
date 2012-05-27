@@ -1,1 +1,2 @@
 C:\Users\Korea\Documents\Visual Studio 2010\Projects\ProjectFenixDown\ProjectFenixDown\ProjectFenixDownContent\obj\x86\Debug\ProjectFenixDownContent.contentprojResolveAssemblyReference.cache
+C:\Users\Justin\Documents\GitHub\ProjectFenixDown\ProjectFenixDown\ProjectFenixDownContent\obj\x86\Debug\ResolveAssemblyReference.cache

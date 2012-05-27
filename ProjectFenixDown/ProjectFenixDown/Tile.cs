@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace ProjectFenixDown
 {
-    enum TileCollision
+    public enum TileCollision
     {
         //a passable tile which does not hinder player motion at all
         passable = 0,

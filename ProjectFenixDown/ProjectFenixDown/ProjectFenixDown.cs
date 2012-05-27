@@ -27,9 +27,15 @@ namespace ProjectFenixDown
 
         //represents the player
         Player playerCharacter;
+        protected Vector2 _playerPosition;
+        protected Vector2 _playerDirection;
+        protected Vector2 _playerSpeed;
 
         //represents the sample level
         Level sampleLevel;
+
+        //First Enemy
+        TheShredder enemyCharacter;
 
         public Game1()
         {
@@ -48,6 +54,7 @@ namespace ProjectFenixDown
             //Initialize the player class
             playerCharacter = new Player();
             sampleLevel = new Level();
+            enemyCharacter = new TheShredder();
 
             base.Initialize();
         }
@@ -69,7 +76,9 @@ namespace ProjectFenixDown
 
             // Load the player resources 
             Vector2 playerPosition = new Vector2(GraphicsDevice.Viewport.TitleSafeArea.X, GraphicsDevice.Viewport.TitleSafeArea.Y + GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
-            playerCharacter.Initialize(sampleLevel, Content.Load<Texture2D>("tempPlayer"), playerPosition);
+            playerCharacter.Initialize(sampleLevel, Content.Load<Texture2D>("Sprite"), playerPosition);
+            enemyCharacter.LoadContent(this.Content, "shredder");
+            enemyCharacter.Initialize(sampleLevel, Content.Load<Texture2D>("shredder"), new Vector2(playerPosition.X + 300, playerPosition.Y), 100, 1, 20, 100);
         }
 
         /// <summary>
@@ -92,6 +101,13 @@ namespace ProjectFenixDown
             // Handle polling for our input
             HandleInput();
             playerCharacter.Update(gameTime, keyboardState, gamePadState);
+            enemyCharacter.Update(gameTime);
+            
+            //Player information
+            _playerPosition = playerCharacter._position;
+            _playerSpeed = playerCharacter._speed;
+            _playerDirection = playerCharacter._direction;
+            enemyCharacter.setPlayerInformation(_playerPosition, _playerSpeed, _playerDirection);
             //playerClamp();
             
 
@@ -101,8 +117,8 @@ namespace ProjectFenixDown
         private void playerClamp()
         {
             // make sure that the player does not go out of bounds
-            playerCharacter.playerPosition.X = MathHelper.Clamp(playerCharacter.playerPosition.X, 0, GraphicsDevice.Viewport.Width - playerCharacter.width);
-            playerCharacter.playerPosition.Y = MathHelper.Clamp(playerCharacter.playerPosition.Y, 0, GraphicsDevice.Viewport.Height - playerCharacter.height);
+            playerCharacter._position.X = MathHelper.Clamp(playerCharacter._position.X, 0, GraphicsDevice.Viewport.Width - playerCharacter._width);
+            playerCharacter._position.Y = MathHelper.Clamp(playerCharacter._position.Y, 0, GraphicsDevice.Viewport.Height - playerCharacter._height);
         }
 
         private void HandleInput()
@@ -123,7 +139,7 @@ namespace ProjectFenixDown
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // Start drawing
             spriteBatch.Begin();
@@ -133,6 +149,7 @@ namespace ProjectFenixDown
 
             // Draw the Player
             playerCharacter.Draw(spriteBatch);
+            enemyCharacter.Draw(this.spriteBatch);
 
             // Stop drawing
             spriteBatch.End();
