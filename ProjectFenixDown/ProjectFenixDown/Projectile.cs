@@ -6,9 +6,9 @@ using Microsoft.Xna.Framework.Input;
 
 namespace ProjectFenixDown
 {
-    class Projectile : Character
+    class Projectile : TheShredder
     {
-        const int MAX_DISTANCE = 600;
+        const int MAX_DISTANCE = 400;
 
         public bool Visible = false;
 

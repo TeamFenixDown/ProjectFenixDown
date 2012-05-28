@@ -54,7 +54,7 @@ namespace ProjectFenixDown
         public Vector2 _direction;
         public Rectangle _size;
         protected float _scale = 1.0f;
-        protected float _gravity = 9.8f;
+
         public bool _isOnGround;
         private float _previousBottom;
         //velocity of the player
@@ -62,10 +62,18 @@ namespace ProjectFenixDown
         protected float _moveAcceleration = 13000.0f;
         protected float _maxMoveSpeed = 1750.0f;
         private const float _gravityAcceleration = 3400.0f;
-        private const float _maxFallSpeed = 550.0f;
-        private const float _jumpControlPower = 0.14f;
+        private const float _maxFallSpeed = 700.0f;
+        private const float _jumpControlPower = 0.17f;
         private const float _groundDragFactor = 0.48f;
-        private const float _airDragFactor = 0.58f;
+        private const float _airDragFactor = 0.48f;
+        private float _maxJumpTime = 0.35f;
+        private float _jumpLaunchVelocity = -3500.0f; 
+
+        //jumping state
+        protected bool _isJumping;
+        private bool _wasJumping;
+        private float _jumpTime;
+
 
         //get the level we're working on
         Level Level
@@ -103,10 +111,7 @@ namespace ProjectFenixDown
 
         public void Update(GameTime gameTime, Vector2 speed, Vector2 direction)
         {
-            _position += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            _position.Y += _gravity;
-            if (_gravity < 9.8f)
-                _gravity += .1f;
+            //_position += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
             ApplyPhysics(gameTime);
             
         }
@@ -157,6 +162,8 @@ namespace ProjectFenixDown
             _velocity.X += _speed.X * _moveAcceleration * elapsed;
             _velocity.Y = MathHelper.Clamp(_velocity.Y + _gravityAcceleration * elapsed, -_maxFallSpeed, _maxFallSpeed);
 
+            _velocity.Y = DoJump(_velocity.Y, gameTimeInput);
+
             //apply pseudo-drag horizontally
             if (_isOnGround)
                 _velocity.X *= _groundDragFactor;
@@ -179,6 +186,62 @@ namespace ProjectFenixDown
             if (_position.Y == previousPosition.Y)
                 _velocity.Y = 0;
         }
+
+        /// <summary>
+        /// Calculates the Y velocity for jumping and animates accordingly
+        /// </summary>
+        /// <remarks>
+        /// During the ascent of a jump, the y velocity is comepltely overridden by a powercurve.
+        /// During the Descent, gravity takes over.
+        /// The jump velocity is controlled by the jumpTime field which measures time into the ascent of the current jump
+        /// </remarks>
+        /// <param name="velocityY">
+        /// The player's current velocity along the Y axis.
+        /// </param>
+        /// <returns>
+        /// A new Y velocity if beginning or continuing a jump.
+        /// Otherwise, the existing Y velocity.
+        /// </returns>
+        protected float DoJump(float velocityY, GameTime gameTimeInput)
+        {
+            //if the player wants to do a jump
+            if (_isJumping)
+            {
+                //begin or continue a jump
+                if ((!_wasJumping && _isOnGround) || _jumpTime > 0.0f)
+                {
+                    if (_jumpTime == 0.0f)
+                    {
+                        //play jump sound here
+                    }
+
+                    _jumpTime += (float)gameTimeInput.ElapsedGameTime.TotalSeconds;
+                    //play the animation for jumping here
+
+                }
+
+                //if we are in the ascent of the jump
+                if (0.0f < _jumpTime && _jumpTime <= _maxJumpTime)
+                {
+                    //fully override the vertical velocity with a powercurve that gives players move control over the top of the jump
+                    velocityY = _jumpLaunchVelocity * (1.0f - (float)Math.Pow(_jumpTime / _maxJumpTime, _jumpControlPower));
+                }
+                else
+                {
+                    //reached the apex of the jump
+                    _jumpTime = 0.0f;
+                }
+            }
+            else
+            {
+                //continues not jumping or cancels a jump in progress
+                _jumpTime = 0.0f;
+            }
+            _wasJumping = _isJumping;
+
+            return velocityY;
+        }
+
         public void HandleCollisions()
         {
             //get the player's bounding rectangle and find neighboring tiles

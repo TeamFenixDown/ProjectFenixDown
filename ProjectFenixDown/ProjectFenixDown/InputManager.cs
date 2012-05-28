@@ -46,6 +46,7 @@ namespace ProjectFenixDown
             GamePadState lastGamePadState = gamePadStateInput;
             KeyboardState lastKeyboardState = keyboardStateInput;
             gamePadStateInput = GamePad.GetState(PlayerIndex.One);
+            keyboardStateInput = Keyboard.GetState();
 
             //expire old input
             TimeSpan time = gameTime.TotalGameTime;

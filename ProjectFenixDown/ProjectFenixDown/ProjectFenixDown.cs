@@ -76,9 +76,9 @@ namespace ProjectFenixDown
 
             // Load the player resources 
             Vector2 playerPosition = new Vector2(GraphicsDevice.Viewport.TitleSafeArea.X, GraphicsDevice.Viewport.TitleSafeArea.Y + GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
-            playerCharacter.Initialize(sampleLevel, Content.Load<Texture2D>("Sprite"), playerPosition);
-            enemyCharacter.LoadContent(this.Content, "shredder");
-            enemyCharacter.Initialize(sampleLevel, Content.Load<Texture2D>("shredder"), new Vector2(playerPosition.X + 300, playerPosition.Y), 100, 1, 20, 100);
+            playerCharacter.Initialize(sampleLevel, Content.Load<Texture2D>("tempPlayer"), playerPosition);
+            enemyCharacter.LoadContent(this.Content, "tempPlayer");
+            enemyCharacter.Initialize(sampleLevel, Content.Load<Texture2D>("tempPlayer"), new Vector2(400, 100), 100, 1, 20, 100);
         }
 
         /// <summary>
@@ -148,8 +148,9 @@ namespace ProjectFenixDown
             sampleLevel.Draw(gameTime, spriteBatch);
 
             // Draw the Player
-            playerCharacter.Draw(spriteBatch);
             enemyCharacter.Draw(this.spriteBatch);
+            playerCharacter.Draw(spriteBatch);
+            
 
             // Stop drawing
             spriteBatch.End();

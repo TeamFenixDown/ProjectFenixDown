@@ -7,20 +7,20 @@ namespace ProjectFenixDown
 {
     class Player : Character
     {
-
-        //constants for controlling vertical movement
-        private float maxJumpTime = 0.35f;
-        private float jumpLaunchVelocity = -3500.0f;        
-
-        private float _previousBottom;
-
-        //jumping state
-        private bool isJumping;
-        private bool wasJumping;
-        private float jumpTime;
-
         // Input configuration
         private const float MoveStickScale = 1.5f;
+
+        //Variables for input handling
+        //The master list of moves for the player
+        Move[] _moves;
+        //the move list used for move detection at runtime
+        MovesList _currentMoveList;
+
+        //the move list is used to match against an input manager for the player
+        InputManager _inputManager;
+        //stores the player's most recent move and when they pressed it.
+        Move _playerMostRecentMove;
+        TimeSpan _playerMostRecentMoveTime;
 
         public void Initialize(Level levelInput ,Texture2D textureInput, Vector2 positionInput)
         {
@@ -37,13 +37,25 @@ namespace ProjectFenixDown
             //set the player health
             _health = 100;
 
-            _moveAcceleration = 13000.0f;
-            _maxMoveSpeed = 1750.0f;
-
             loadContent();
 
             //sets the player movement speed
             _velocity = Vector2.Zero;
+
+            //constructs the list of moves
+            _moves = new Move[]
+                {
+                    new Move("RunLeft",     Direction.Left) { IsSubMove = true },
+                    new Move("RunRight",    Direction.Right) { IsSubMove = true },
+                    new Move("SprintLeft",  Direction.Left, Direction.Left),
+                    new Move("SprintRight", Direction.Right, Direction.Right),
+                    //new Move("Jump",        Buttons.A) { IsSubMove = true },
+                };
+            //constructs a move list which will store its own copy of the moves array.
+            _currentMoveList = new MovesList(_moves);
+
+            //create an InputManager for the player with a sufficiently large buffer
+            _inputManager = new InputManager(_currentMoveList.LongestMoveLength);
             
         }
 
@@ -61,33 +73,82 @@ namespace ProjectFenixDown
         public void Update(GameTime gameTimeInput, KeyboardState keyboardStateInput, GamePadState gamepadStateInput)
         {
             //update the input
-            InputUpdate(gameTimeInput, keyboardStateInput, gamepadStateInput);
+            _inputManager.Update(gameTimeInput);
+            
+
+            // Dection and record the currents player's move recent move
+            Move newMove = _currentMoveList.DetectMove(_inputManager);
+            if (newMove != null)
+            {
+                _playerMostRecentMove = newMove;
+                _playerMostRecentMoveTime = gameTimeInput.TotalGameTime;
+            }
+
+
+            if (_playerMostRecentMove != null)
+            {
+                PerformMove(_playerMostRecentMove, keyboardStateInput, gamepadStateInput);
+            }
+
+            //temp stuff to test jumping
+            _isJumping = gamepadStateInput.IsButtonDown(Buttons.A);
+
             ApplyPhysics(gameTimeInput);
 
             // Clear input.
             _speed = Vector2.Zero;
         }
 
-        public void InputUpdate(GameTime gameTimeInput, KeyboardState keyboardStateInput, GamePadState gamepadStateInput)
+        public void PerformMove(Move moveToPerform, KeyboardState keyboardStateInput, GamePadState gamepadStateInput)
         {
-            //get analog horizontal movement
-            _speed.X = gamepadStateInput.ThumbSticks.Left.X * MoveStickScale;
-
-            //ignore small movements to prevent running in place.
-            if (Math.Abs(_speed.X) < 0.5f)
-                _speed.X = 0.0f;
-
-            //if any digital movement input is found, override the analog movment
-            if (gamepadStateInput.IsButtonDown(Buttons.DPadLeft) || keyboardStateInput.IsKeyDown(Keys.Left))
+            if (moveToPerform.name == "RunLeft")
             {
-                _speed.X = -1.5f;
+                _speed.X = -1.25f;
+                if (gamepadStateInput.IsButtonUp(Buttons.DPadLeft) && gamepadStateInput.IsButtonUp(Buttons.LeftThumbstickLeft) && keyboardStateInput.IsKeyUp(Keys.Left))
+                {
+                    _speed.X = 0;
+                    _playerMostRecentMove = null;
+                }
             }
-            else if (gamepadStateInput.IsButtonDown(Buttons.DPadRight) || keyboardStateInput.IsKeyDown(Keys.Right))
+            if (moveToPerform.name == "RunRight")
             {
-                _speed.X = 1.5f;
+                _speed.X = 1.25f;
+                if (gamepadStateInput.IsButtonUp(Buttons.DPadRight) && gamepadStateInput.IsButtonUp(Buttons.LeftThumbstickRight) && keyboardStateInput.IsKeyUp(Keys.Right))
+                {
+                    _speed.X = 0;
+                    _playerMostRecentMove = null;
+                }
             }
-            if(keyboardStateInput.IsKeyDown(Keys.Up) == true)
-                _speed.Y = 1.5f;
+            if (moveToPerform.name == "SprintLeft")
+            {
+                _speed.X = -1.75f;
+                if (gamepadStateInput.IsButtonUp(Buttons.DPadLeft) && gamepadStateInput.IsButtonUp(Buttons.LeftThumbstickLeft) && keyboardStateInput.IsKeyUp(Keys.Left))
+                {
+                    _speed.X = 0;
+                    _playerMostRecentMove = null;
+                }
+            }
+            if (moveToPerform.name == "SprintRight")
+            {
+                _speed.X = 1.75f;
+                if (gamepadStateInput.IsButtonUp(Buttons.DPadRight) && gamepadStateInput.IsButtonUp(Buttons.LeftThumbstickRight) && keyboardStateInput.IsKeyUp(Keys.Right))
+                {
+                    _speed.X = 0;
+                    _playerMostRecentMove = null;
+                }
+            }
+            if (moveToPerform.name == "Jump")
+            {
+                _isJumping = true;
+                /*if (gamepadStateInput.IsButtonUp(Buttons.A) && keyboardStateInput.IsKeyUp(Keys.A))
+                {
+                    isJumping = false;
+                    playerMostRecentMove = null;
+                }*/
+
+            }
         }
+
+
     }
 }

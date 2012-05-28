@@ -11,19 +11,12 @@ namespace ProjectFenixDown
     class TheShredder : Character
     {
 
-        List<Projectile> _projectiles = new List<Projectile>();
+        protected List<Projectile> _projectiles = new List<Projectile>();
         ContentManager _contentManager;
+        double shootingDelay;
 
         State _currentState = State.Walking;
         State _playerState;
-
-        const string TEXTURENAME = "shredder";
-        const int START_POSITION_X = 125;
-        const int START_POSITION_Y = 245;
-        const int SPEED = 20;
-
-        Vector2 _direction = Vector2.Zero;
-        Vector2 _speed = Vector2.Zero;
 
         public void LoadContent(ContentManager contentManager, String textureName)
         {
@@ -33,22 +26,23 @@ namespace ProjectFenixDown
             {
                 projectile.LoadContent(contentManager, "Hadouken");
             }
-            _position = new Vector2(START_POSITION_X, START_POSITION_Y);
             base.LoadContent(contentManager, textureName);
         }
 
         public void Update(GameTime gameTime)
         {
             KeyboardState currentKeyboardState = Keyboard.GetState();
-            UpdateMovement(currentKeyboardState);
+            UpdateMovement(gameTime);
             Updateprojectile(gameTime, currentKeyboardState);
             _previousKeyboardState = currentKeyboardState;
-            base.Update(gameTime, new Vector2(_movementSpeed, _movementSpeed), new Vector2(1, 0));
+
+            ApplyPhysics(gameTime);
         }
 
-        public void UpdateMovement(KeyboardState keyboardState)
+        public void UpdateMovement(GameTime gameTime)
         {
-            
+            if (_isOnGround == true)
+                _speed.X = 1.25f;
         }
 
         public void Updateprojectile(GameTime gameTime, KeyboardState currentKeyboardState)
@@ -57,34 +51,48 @@ namespace ProjectFenixDown
             {
                 projectile.Update(gameTime);
             }
+            for (int i = 0; i < _projectiles.Count; i++)
+            {
+                if (_projectiles[i].Visible == false)
+                {
+                    _projectiles.RemoveAt(i);
+                    i--;
+                }
+            }
 
-            if (currentKeyboardState.IsKeyDown(Keys.Space) == true && _previousKeyboardState.IsKeyDown(Keys.Space) == false)
+
+            if (shootingDelay > 0)
+                shootingDelay -= gameTime.ElapsedGameTime.TotalSeconds;
+            else
             {
                 Shootprojectile(gameTime);
             }
+
         }
 
         private void Shootprojectile(GameTime gameTime)
         {
-
-            float projectileSpeed = 200;
+            shootingDelay = .5;
+            float projectileSpeed = 400;
 
             Vector2 attackVector = _playerPosition - _position;
             attackVector.Normalize();
 
-            if (_currentState == State.Walking)
+            if (_projectiles.Count <= 20)
             {
-                Projectile projectile = new Projectile();
-                projectile.LoadContent(_contentManager, "hadouken");
-                projectile.Fire(_position + new Vector2(_size.Width / 2, _size.Height / 2),
-                            new Vector2(projectileSpeed, projectileSpeed), attackVector);
-                _projectiles.Add(projectile);
+                if (_currentState == State.Walking)
+                {
+                    Projectile projectile = new Projectile();
+                    _projectiles.Add(projectile);
+                    projectile.LoadContent(_contentManager, "hadouken");
+                    projectile.Fire(_position + new Vector2(_size.Width / 2, _size.Height / 2),
+                                new Vector2(projectileSpeed, projectileSpeed), attackVector);
+                }
             }
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-
             foreach (Projectile projectile in _projectiles)
             {
                 projectile.Draw(spriteBatch);
