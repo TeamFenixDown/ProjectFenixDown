@@ -78,7 +78,7 @@ namespace ProjectFenixDown
             Vector2 playerPosition = new Vector2(GraphicsDevice.Viewport.TitleSafeArea.X, GraphicsDevice.Viewport.TitleSafeArea.Y + GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
             playerCharacter.Initialize(sampleLevel, Content.Load<Texture2D>("tempPlayer"), playerPosition);
             enemyCharacter.LoadContent(this.Content, "tempPlayer");
-            enemyCharacter.Initialize(sampleLevel, Content.Load<Texture2D>("tempPlayer"), new Vector2(400, 100), 100, 1, 20, 100);
+            enemyCharacter.Initialize(sampleLevel, Content.Load<Texture2D>("tempPlayer"), new Vector2(250, 100), 100, 1, 20, 100);
         }
 
         /// <summary>

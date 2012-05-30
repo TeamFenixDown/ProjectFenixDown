@@ -56,7 +56,7 @@ namespace ProjectFenixDown
         protected float _scale = 1.0f;
 
         public bool _isOnGround;
-        private float _previousBottom;
+        protected float _previousBottom;
         //velocity of the player
         public Vector2 _velocity;
         protected float _moveAcceleration = 13000.0f;
@@ -73,6 +73,9 @@ namespace ProjectFenixDown
         protected bool _isJumping;
         private bool _wasJumping;
         private float _jumpTime;
+
+        //Check Surrounding tiles
+        protected int _topTile, _bottomTile, _leftTile, _rightTile;
 
 
         //get the level we're working on
@@ -246,18 +249,18 @@ namespace ProjectFenixDown
         {
             //get the player's bounding rectangle and find neighboring tiles
             Rectangle playerBounds = Source;
-            int leftTile = (int)Math.Floor((float)playerBounds.Left / Tile.width);
-            int rightTile = (int)Math.Ceiling((float)playerBounds.Right / Tile.width);
-            int topTile = (int)Math.Floor((float)playerBounds.Top / Tile.height);
-            int bottomTile = (int)Math.Ceiling((float)playerBounds.Bottom / Tile.height);
+            _leftTile = (int)Math.Floor((float)playerBounds.Left / Tile.width);
+            _rightTile = (int)Math.Ceiling((float)playerBounds.Right / Tile.width);
+            _topTile = (int)Math.Floor((float)playerBounds.Top / Tile.height);
+            _bottomTile = (int)Math.Ceiling((float)playerBounds.Bottom / Tile.height);
 
             //reset flag to search for ground collision
             _isOnGround = false;
 
             //for each potentially colliding tile,
-            for (int y = topTile; y <= bottomTile; ++y)
+            for (int y = _topTile; y <= _bottomTile; ++y)
             {
-                for (int x = leftTile; x <= rightTile; ++x)
+                for (int x = _leftTile; x <= _rightTile; ++x)
                 {
                     //if this tile is collidable
                     TileCollision collision = _level.GetCollision(x, y);

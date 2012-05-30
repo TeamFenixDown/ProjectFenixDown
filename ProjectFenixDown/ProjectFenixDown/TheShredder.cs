@@ -41,8 +41,19 @@ namespace ProjectFenixDown
 
         public void UpdateMovement(GameTime gameTime)
         {
-            if (_isOnGround == true)
-                _speed.X = 1.25f;
+            for (int y = _topTile; y <= _bottomTile; ++y)
+            {
+                for (int x = _leftTile; x <= _rightTile; ++x)
+                {
+                    TileCollision collision = _level.GetCollision((int)(x + _speed.X), y + 1);
+                    if (collision != TileCollision.passable)
+                    {
+                        _speed.X -= .15f;
+                    }
+                    else { _speed.X *=-1; }
+                }
+            }
+                
         }
 
         public void Updateprojectile(GameTime gameTime, KeyboardState currentKeyboardState)
@@ -72,7 +83,7 @@ namespace ProjectFenixDown
 
         private void Shootprojectile(GameTime gameTime)
         {
-            shootingDelay = .5;
+            shootingDelay = .05;
             float projectileSpeed = 400;
 
             Vector2 attackVector = _playerPosition - _position;
