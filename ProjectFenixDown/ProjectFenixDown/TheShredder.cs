@@ -31,12 +31,11 @@ namespace ProjectFenixDown
 
         public void Update(GameTime gameTime)
         {
-            KeyboardState currentKeyboardState = Keyboard.GetState();
             UpdateMovement(gameTime);
-            Updateprojectile(gameTime, currentKeyboardState);
-            _previousKeyboardState = currentKeyboardState;
+            Updateprojectile(gameTime);
 
             ApplyPhysics(gameTime);
+            _speed = Vector2.Zero;
         }
 
         public void UpdateMovement(GameTime gameTime)
@@ -45,18 +44,18 @@ namespace ProjectFenixDown
             {
                 for (int x = _leftTile; x <= _rightTile; ++x)
                 {
-                    TileCollision collision = _level.GetCollision((int)(x + _speed.X), y + 1);
+                    TileCollision collision = _level.GetCollision((int)(x + _speed.X), y);
                     if (collision != TileCollision.passable)
                     {
-                        _speed.X -= .15f;
+                        _speed.X = _movementSpeed;
                     }
-                    else { _speed.X *=-1; }
+                    else { _movementSpeed *= -1; }
                 }
             }
                 
         }
 
-        public void Updateprojectile(GameTime gameTime, KeyboardState currentKeyboardState)
+        public void Updateprojectile(GameTime gameTime)
         {
             foreach (Projectile projectile in _projectiles)
             {
@@ -83,7 +82,7 @@ namespace ProjectFenixDown
 
         private void Shootprojectile(GameTime gameTime)
         {
-            shootingDelay = .05;
+            shootingDelay = .5;
             float projectileSpeed = 400;
 
             Vector2 attackVector = _playerPosition - _position;

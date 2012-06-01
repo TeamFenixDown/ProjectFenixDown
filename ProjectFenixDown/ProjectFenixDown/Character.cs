@@ -99,24 +99,26 @@ namespace ProjectFenixDown
         //a movement speed for the player
         protected float _movementSpeed;
 
-        public void Initialize(Level levelInput, Texture2D texture, Vector2 position, int health, int damage, int movementSpeed, int exp)
+        public void Initialize(Level levelInput, Vector2 position, int health, int damage, int movementSpeed, int exp)
         {
             this._level = levelInput;
-            _texture = texture;
             _position = position;
             _isAlive = true;
             _health = 100;
             _damage = 10;
-            _movementSpeed = 3.0f;
+            _movementSpeed = movementSpeed;
             _exp = 100;
 
         }
 
-        public void Update(GameTime gameTime, Vector2 speed, Vector2 direction)
+        public void Update(GameTime gameTime)
         {
             //_position += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            ApplyPhysics(gameTime);
             
+            
+            ApplyPhysics(gameTime);
+
+            _speed = Vector2.Zero;
         }
 
         public void UpdateProjectile(GameTime gameTime, Vector2 speed, Vector2 direction)
@@ -133,7 +135,13 @@ namespace ProjectFenixDown
         {
             _texture = contentManager.Load<Texture2D>(textureName);
             _textureName = textureName;
-            _source = new Rectangle(0, 0, _texture.Width, _texture.Height);
+
+            //calculates the player's local bounds
+            int width = (int)(_texture.Width * 0.7);
+            int left = (int)(_texture.Width - width) / 2;
+            int height = (int)(_texture.Height * 0.9);
+            int top = (int)(_texture.Height - height);
+            _source = new Rectangle(left, top, width, height);
 
             _size = new Rectangle(0, 0, (int)(_texture.Width * _scale), (int)(_texture.Height * _scale));
         }
@@ -155,6 +163,28 @@ namespace ProjectFenixDown
             _playerSpeed = playerSpeed;
             _playerDirection = playerDirection;
         }
+
+        public void ApplyPhysics2(GameTime gameTime)
+        {
+            float elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            Vector2 previousPosition = _position;
+
+            _velocity.X = _speed.X * elapsedTime;
+            _velocity.Y = MathHelper.Clamp(_velocity.Y + _gravityAcceleration * elapsedTime, -_maxFallSpeed, _maxFallSpeed);
+
+            _velocity.Y = DoJump(_velocity.Y, gameTime);
+
+            _position += _velocity * elapsedTime;
+            _position = new Vector2((float)Math.Round(_position.X), (float)Math.Round(_position.Y));
+
+            HandleCollisions();
+
+            if (_position.X == previousPosition.X)
+                _velocity.X = 0;
+            if (_position.Y == previousPosition.Y)
+                _velocity.Y = 0;
+        }
         public void ApplyPhysics(GameTime gameTimeInput)
         {
             float elapsed = (float)gameTimeInput.ElapsedGameTime.TotalSeconds;
@@ -162,6 +192,7 @@ namespace ProjectFenixDown
             Vector2 previousPosition = _position;
 
             //base velocity is a combination of horizontal movement control and acceleration downward due to gravity NEEDS UPWARDS
+
             _velocity.X += _speed.X * _moveAcceleration * elapsed;
             _velocity.Y = MathHelper.Clamp(_velocity.Y + _gravityAcceleration * elapsed, -_maxFallSpeed, _maxFallSpeed);
 

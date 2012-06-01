@@ -93,10 +93,7 @@ namespace ProjectFenixDown
             //temp stuff to test jumping
             _isJumping = gamepadStateInput.IsButtonDown(Buttons.A);
 
-            ApplyPhysics(gameTimeInput);
-
-            // Clear input.
-            _speed = Vector2.Zero;
+            base.Update(gameTimeInput);
         }
 
         public void PerformMove(Move moveToPerform, KeyboardState keyboardStateInput, GamePadState gamepadStateInput)

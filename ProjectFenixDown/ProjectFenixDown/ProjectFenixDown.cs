@@ -77,8 +77,9 @@ namespace ProjectFenixDown
             // Load the player resources 
             Vector2 playerPosition = new Vector2(GraphicsDevice.Viewport.TitleSafeArea.X, GraphicsDevice.Viewport.TitleSafeArea.Y + GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
             playerCharacter.Initialize(sampleLevel, Content.Load<Texture2D>("tempPlayer"), playerPosition);
+            
+            enemyCharacter.Initialize(sampleLevel, new Vector2(250, 100), 100, 1, 1, 100);
             enemyCharacter.LoadContent(this.Content, "tempPlayer");
-            enemyCharacter.Initialize(sampleLevel, Content.Load<Texture2D>("tempPlayer"), new Vector2(250, 100), 100, 1, 20, 100);
         }
 
         /// <summary>
