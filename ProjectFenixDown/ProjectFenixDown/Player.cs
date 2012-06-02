@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace ProjectFenixDown
 {
-    class Player : Character
+    public class Player : Character
     {
         // Input configuration
         private const float MoveStickScale = 1.5f;
@@ -92,6 +92,7 @@ namespace ProjectFenixDown
 
             //temp stuff to test jumping
             _isJumping = gamepadStateInput.IsButtonDown(Buttons.A);
+            _isJumping = keyboardStateInput.IsKeyDown(Keys.A);
 
             base.Update(gameTimeInput);
         }

@@ -7,7 +7,7 @@ namespace ProjectFenixDown
     /// Descibes a sequences of buttons which must be pressed to activate the move.
     /// a real game might add a virtual PerformMove() method to this class
     /// </summary>
-    class Move
+    public class Move
     {
         public string name;
 

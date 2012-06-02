@@ -6,28 +6,30 @@ using Microsoft.Xna.Framework.Input;
 
 namespace ProjectFenixDown
 {
-    class Projectile : TheShredder
+    public class Projectile : TheShredder
     {
         const int MAX_DISTANCE = 400;
 
         public bool Visible = false;
 
         Vector2 _startPosition;
-        Vector2 _speed;
-        Vector2 _direction;
 
-        public void LoadContent(ContentManager contentManager, String textureName)
+        public void LoadContent(ContentManager contentManager, String textureName, int damage)
         {
             base.LoadContent(contentManager, textureName);
             _scale = 0.7f;
+            _damage = damage;
+
         }
 
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, Player player)
         {
             if (Vector2.Distance(_startPosition, _position) > MAX_DISTANCE)
                 Visible = false;
             if (Visible == true)
                 base.UpdateProjectile(gameTime, _speed, _direction);
+            
+            CheckHit(player);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -43,6 +45,17 @@ namespace ProjectFenixDown
             _speed = speed;
             _direction = direction;
             Visible = true;
+        }
+
+        public void CheckHit(Player player)
+        {
+
+            if (Source.Intersects(player.Source))
+            {
+                Visible = false;
+                player._health -= _damage;
+            }
+
         }
     }
 }

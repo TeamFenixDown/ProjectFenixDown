@@ -26,7 +26,7 @@ namespace ProjectFenixDown
         private KeyboardState keyboardState;
 
         //represents the player
-        Player playerCharacter;
+        public Player playerCharacter;
         protected Vector2 _playerPosition;
         protected Vector2 _playerDirection;
         protected Vector2 _playerSpeed;
@@ -36,6 +36,8 @@ namespace ProjectFenixDown
 
         //First Enemy
         TheShredder enemyCharacter;
+
+        protected Rectangle _playerBounds;
 
         public Game1()
         {
@@ -78,7 +80,7 @@ namespace ProjectFenixDown
             Vector2 playerPosition = new Vector2(GraphicsDevice.Viewport.TitleSafeArea.X, GraphicsDevice.Viewport.TitleSafeArea.Y + GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
             playerCharacter.Initialize(sampleLevel, Content.Load<Texture2D>("tempPlayer"), playerPosition);
             
-            enemyCharacter.Initialize(sampleLevel, new Vector2(250, 100), 100, 1, 1, 100);
+            enemyCharacter.Initialize(playerCharacter, sampleLevel, new Vector2(250, 100), 100, 1, 1, 100);
             enemyCharacter.LoadContent(this.Content, "tempPlayer");
         }
 
@@ -108,8 +110,7 @@ namespace ProjectFenixDown
             _playerPosition = playerCharacter._position;
             _playerSpeed = playerCharacter._speed;
             _playerDirection = playerCharacter._direction;
-            enemyCharacter.setPlayerInformation(_playerPosition, _playerSpeed, _playerDirection);
-            //playerClamp();
+            _playerBounds = playerCharacter.Source;
             
 
             base.Update(gameTime);
@@ -151,6 +152,8 @@ namespace ProjectFenixDown
             // Draw the Player
             enemyCharacter.Draw(this.spriteBatch);
             playerCharacter.Draw(spriteBatch);
+            
+            //Draw the UI
             
 
             // Stop drawing

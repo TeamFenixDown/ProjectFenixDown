@@ -8,16 +8,22 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace ProjectFenixDown
 {
-    class TheShredder : Character
+    public class TheShredder : Character
     {
+
+        protected Player _player;
+
 
         protected List<Projectile> _projectiles = new List<Projectile>();
         ContentManager _contentManager;
         double shootingDelay;
 
-        State _currentState = State.Walking;
-        State _playerState;
+        public void Initialize(Player player, Level level, Vector2 position, int health, int movementSpeed, int damage, int exp)
+        {
+            _player = player;
 
+            base.Initialize(level, position, health, damage, movementSpeed, exp);
+        }
         public void LoadContent(ContentManager contentManager, String textureName)
         {
             _contentManager = contentManager;
@@ -59,7 +65,7 @@ namespace ProjectFenixDown
         {
             foreach (Projectile projectile in _projectiles)
             {
-                projectile.Update(gameTime);
+                projectile.Update(gameTime, _player);
             }
             for (int i = 0; i < _projectiles.Count; i++)
             {
@@ -85,16 +91,18 @@ namespace ProjectFenixDown
             shootingDelay = .5;
             float projectileSpeed = 400;
 
-            Vector2 attackVector = _playerPosition - _position;
+            Vector2 playerCenter = new Vector2(_player._position.X - _player.Source.Width / 2, _player._position.Y + (_player.Source.Height / 2));
+            Vector2 projectileCenter = new Vector2(_position.X + Source.Width / 2, _position.Y + Source.Height / 2);
+            Vector2 attackVector = playerCenter - projectileCenter;
             attackVector.Normalize();
 
             if (_projectiles.Count <= 20)
             {
-                if (_currentState == State.Walking)
+                if (_currentState != State.Stunned)
                 {
                     Projectile projectile = new Projectile();
                     _projectiles.Add(projectile);
-                    projectile.LoadContent(_contentManager, "hadouken");
+                    projectile.LoadContent(_contentManager, "hadouken", 10);
                     projectile.Fire(_position + new Vector2(_size.Width / 2, _size.Height / 2),
                                 new Vector2(projectileSpeed, projectileSpeed), attackVector);
                 }

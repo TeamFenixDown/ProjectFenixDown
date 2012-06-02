@@ -9,8 +9,9 @@ namespace ProjectFenixDown
     //this will become the superclass for all character types
     //each subclass will be an enemy subtype (or the player)
     //however, bosses will likely require their own unique class
-    public class Character : Game1
+    public class Character
     {
+
         protected enum State
         {
             Idle,
@@ -21,7 +22,8 @@ namespace ProjectFenixDown
             Stunned,
             Poisoned,
             Possessed,
-            Blind
+            Blind,
+            Dedz
         }
 
         //variables
@@ -32,7 +34,7 @@ namespace ProjectFenixDown
         protected KeyboardState _previousKeyboardState;
         protected GamePadState _previousGamePadState;
 
-        protected Rectangle _source;
+        public Rectangle _source;
         public Rectangle Source
         {
             get
@@ -67,7 +69,7 @@ namespace ProjectFenixDown
         private const float _groundDragFactor = 0.48f;
         private const float _airDragFactor = 0.48f;
         private float _maxJumpTime = 0.35f;
-        private float _jumpLaunchVelocity = -3500.0f; 
+        private float _jumpLaunchVelocity = -3500.0f;
 
         //jumping state
         protected bool _isJumping;
@@ -99,7 +101,7 @@ namespace ProjectFenixDown
         //a movement speed for the player
         protected float _movementSpeed;
 
-        public void Initialize(Level levelInput, Vector2 position, int health, int damage, int movementSpeed, int exp)
+        public void Initialize(Level levelInput, Vector2 position, int health, int damage, float movementSpeed, int exp)
         {
             this._level = levelInput;
             _position = position;
@@ -114,10 +116,18 @@ namespace ProjectFenixDown
         public void Update(GameTime gameTime)
         {
             //_position += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            
-            
-            ApplyPhysics(gameTime);
 
+            if (_health <= 0)
+            {
+                _currentState = State.Dedz;   
+            }
+
+            if (_currentState == State.Dedz)
+            {
+                //Kill
+            }
+
+            ApplyPhysics(gameTime);
             _speed = Vector2.Zero;
         }
 
@@ -157,13 +167,6 @@ namespace ProjectFenixDown
             }
         }
 
-        public void setPlayerInformation(Vector2 playerPosition, Vector2 playerSpeed, Vector2 playerDirection)
-        {
-            _playerPosition = playerPosition;
-            _playerSpeed = playerSpeed;
-            _playerDirection = playerDirection;
-        }
-
         public void ApplyPhysics2(GameTime gameTime)
         {
             float elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -185,6 +188,7 @@ namespace ProjectFenixDown
             if (_position.Y == previousPosition.Y)
                 _velocity.Y = 0;
         }
+
         public void ApplyPhysics(GameTime gameTimeInput)
         {
             float elapsed = (float)gameTimeInput.ElapsedGameTime.TotalSeconds;
