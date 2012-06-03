@@ -8,23 +8,21 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace ProjectFenixDown
 {
-    public class TheShredder : Character
+    public class TheShredder : Enemy
     {
 
-        protected Player _player;
-
-
+        const String TEXTURENAME = "shredder";
         protected List<Projectile> _projectiles = new List<Projectile>();
         ContentManager _contentManager;
         double shootingDelay;
 
-        public void Initialize(Player player, Level level, Vector2 position, int health, int movementSpeed, int damage, int exp)
+        public override void Initialize(Player player, Level level, Vector2 position, int health, int movementSpeed, int damage, int exp)
         {
             _player = player;
 
             base.Initialize(level, position, health, damage, movementSpeed, exp);
         }
-        public void LoadContent(ContentManager contentManager, String textureName)
+        public override void LoadContent(ContentManager contentManager)
         {
             _contentManager = contentManager;
 
@@ -32,19 +30,18 @@ namespace ProjectFenixDown
             {
                 projectile.LoadContent(contentManager, "Hadouken");
             }
-            base.LoadContent(contentManager, textureName);
+            base.LoadContent(contentManager, TEXTURENAME);
         }
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             UpdateMovement(gameTime);
             Updateprojectile(gameTime);
 
-            ApplyPhysics(gameTime);
-            _speed = Vector2.Zero;
+            base.Update(gameTime);
         }
 
-        public void UpdateMovement(GameTime gameTime)
+        public override void UpdateMovement(GameTime gameTime)
         {
             for (int y = _topTile; y <= _bottomTile; ++y)
             {
@@ -59,6 +56,11 @@ namespace ProjectFenixDown
                 }
             }
                 
+        }
+
+        public void UpdateProjectile(GameTime gameTime, Vector2 speed, Vector2 direction)
+        {
+            _position += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
 
         public void Updateprojectile(GameTime gameTime)

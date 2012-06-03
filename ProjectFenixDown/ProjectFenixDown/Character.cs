@@ -9,7 +9,7 @@ namespace ProjectFenixDown
     //this will become the superclass for all character types
     //each subclass will be an enemy subtype (or the player)
     //however, bosses will likely require their own unique class
-    public class Character
+    public abstract class Character
     {
 
         protected enum State
@@ -26,6 +26,7 @@ namespace ProjectFenixDown
             Dedz
         }
 
+        #region Variables
         //variables
         //animations
         protected Texture2D _texture;
@@ -100,6 +101,7 @@ namespace ProjectFenixDown
 
         //a movement speed for the player
         protected float _movementSpeed;
+        #endregion Variables
 
         public void Initialize(Level levelInput, Vector2 position, int health, int damage, float movementSpeed, int exp)
         {
@@ -113,7 +115,7 @@ namespace ProjectFenixDown
 
         }
 
-        public void Update(GameTime gameTime)
+        public virtual void Update(GameTime gameTime)
         {
             //_position += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
@@ -131,17 +133,12 @@ namespace ProjectFenixDown
             _speed = Vector2.Zero;
         }
 
-        public void UpdateProjectile(GameTime gameTime, Vector2 speed, Vector2 direction)
-        {
-            _position += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-        }
-
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(_texture, _position, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
         }
 
-        public void LoadContent(ContentManager contentManager, string textureName)
+        public virtual void LoadContent(ContentManager contentManager, string textureName)
         {
             _texture = contentManager.Load<Texture2D>(textureName);
             _textureName = textureName;
@@ -165,28 +162,6 @@ namespace ProjectFenixDown
                 //Recalculate size of sprite with new value
                 _size = new Rectangle(0, 0, (int)(_texture.Width * _scale), (int)(_texture.Height * _scale));
             }
-        }
-
-        public void ApplyPhysics2(GameTime gameTime)
-        {
-            float elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-            Vector2 previousPosition = _position;
-
-            _velocity.X = _speed.X * elapsedTime;
-            _velocity.Y = MathHelper.Clamp(_velocity.Y + _gravityAcceleration * elapsedTime, -_maxFallSpeed, _maxFallSpeed);
-
-            _velocity.Y = DoJump(_velocity.Y, gameTime);
-
-            _position += _velocity * elapsedTime;
-            _position = new Vector2((float)Math.Round(_position.X), (float)Math.Round(_position.Y));
-
-            HandleCollisions();
-
-            if (_position.X == previousPosition.X)
-                _velocity.X = 0;
-            if (_position.Y == previousPosition.Y)
-                _velocity.Y = 0;
         }
 
         public void ApplyPhysics(GameTime gameTimeInput)

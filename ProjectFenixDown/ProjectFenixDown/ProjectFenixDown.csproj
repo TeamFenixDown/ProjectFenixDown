@@ -122,6 +122,7 @@
   <ItemGroup>
     <Compile Include="Animation.cs" />
     <Compile Include="Character.cs" />
+    <Compile Include="EnemyClass.cs" />
     <Compile Include="Direction.cs" />
     <Compile Include="InputManager.cs" />
     <Compile Include="LevelBuilder.cs" />
@@ -134,6 +135,7 @@
     <Compile Include="ProjectFenixDown.cs" />
     <Compile Include="Level.cs" />
     <Compile Include="RectangleExtensions.cs" />
+    <Compile Include="TheIncredibleBulk.cs" />
     <Compile Include="TheShredder.cs" />
     <Compile Include="Tile.cs" />
   </ItemGroup>

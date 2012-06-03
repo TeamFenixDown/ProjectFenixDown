@@ -34,8 +34,9 @@ namespace ProjectFenixDown
         //represents the sample level
         Level sampleLevel;
 
-        //First Enemy
-        TheShredder enemyCharacter;
+        //Enemy list
+        List<Enemy> enemyList = new List<Enemy>();
+        Enemy enemyCharacter;
 
         protected Rectangle _playerBounds;
 
@@ -56,7 +57,10 @@ namespace ProjectFenixDown
             //Initialize the player class
             playerCharacter = new Player();
             sampleLevel = new Level();
+
+            //Temporary, need to level scanning and automatic adding to the list
             enemyCharacter = new TheShredder();
+            enemyList.Add(enemyCharacter);
 
             base.Initialize();
         }
@@ -80,8 +84,12 @@ namespace ProjectFenixDown
             Vector2 playerPosition = new Vector2(GraphicsDevice.Viewport.TitleSafeArea.X, GraphicsDevice.Viewport.TitleSafeArea.Y + GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
             playerCharacter.Initialize(sampleLevel, Content.Load<Texture2D>("tempPlayer"), playerPosition);
             
-            enemyCharacter.Initialize(playerCharacter, sampleLevel, new Vector2(250, 100), 100, 1, 1, 100);
-            enemyCharacter.LoadContent(this.Content, "tempPlayer");
+            //Loop through enemy list and initialize each
+            foreach (Enemy enemy in enemyList)
+            {
+                enemy.Initialize(playerCharacter, sampleLevel, new Vector2(250, 100), 100, 1, 1, 100);
+                enemy.LoadContent(this.Content);
+            }
         }
 
         /// <summary>
@@ -104,13 +112,11 @@ namespace ProjectFenixDown
             // Handle polling for our input
             HandleInput();
             playerCharacter.Update(gameTime, keyboardState, gamePadState);
-            enemyCharacter.Update(gameTime);
-            
-            //Player information
-            _playerPosition = playerCharacter._position;
-            _playerSpeed = playerCharacter._speed;
-            _playerDirection = playerCharacter._direction;
-            _playerBounds = playerCharacter.Source;
+
+            foreach (Enemy enemy in enemyList)
+            {
+                enemy.Update(gameTime);
+            }
             
 
             base.Update(gameTime);
@@ -150,7 +156,11 @@ namespace ProjectFenixDown
             sampleLevel.Draw(gameTime, spriteBatch);
 
             // Draw the Player
-            enemyCharacter.Draw(this.spriteBatch);
+            foreach (Enemy enemy in enemyList)
+            {
+                enemy.Draw(this.spriteBatch);
+            }
+
             playerCharacter.Draw(spriteBatch);
             
             //Draw the UI

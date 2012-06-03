@@ -1,0 +1,12 @@
+To do list:
+
+Next enemy: smashing enemy - brute
+
+[1:01:38 AM] Korea: these enemies SHOULD
+[1:01:42 AM] Korea: spawn off screen
+[1:01:45 AM] Korea: run in
+[1:02:00 AM] Korea: and then they'd run up to the player, but stop some distance away
+[1:02:22 AM] Korea: they'd strafe back and forth for a short bit
+[1:02:25 AM] Korea: and then run up for a blow
+[1:02:58 AM] Korea: that would be the MOST basic way they'd act
+[1:03:29 AM] Korea: and then from there we can add if they should block, or if they'll so some other kind of attack, etc.
